@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     agent any
     stages{
         stage("Restore dependencies"){
@@ -6,7 +6,6 @@ pipeline{
                 expression {
                     return env.GIT_BRANCH == 'origin/main'
                 }
-               branch "main"
             }
             steps{
                 bat "dotnet restore"
@@ -17,18 +16,16 @@ pipeline{
                 expression {
                     return env.GIT_BRANCH == 'origin/main'
                 }
-               branch "main"
             }
             steps{
                 bat "dotnet build --no-restore"
             }
         }
-        stage("Run tests"){
+        stage("Run the tests"){
             when {
                 expression {
                     return env.GIT_BRANCH == 'origin/main'
                 }
-               branch "main"
             }
             steps{
                 bat "dotnet test --no-build --verbosity normal"
